@@ -10,12 +10,7 @@ namespace kafkapublisher.Controllers
     [Consumes("application/json","application/vnd.api+json")]
     [Produces("application/json", "application/vnd.api+json")]
     public class ProducerController : ControllerBase
-    {
-        private static readonly string[] Summaries = new[]
-        {
-        "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
-        };
-
+    {        
         private readonly ILogger<ProducerController> _logger;
         private readonly IProducer _producer;
 
@@ -24,18 +19,6 @@ namespace kafkapublisher.Controllers
             _logger = logger;
             _producer = producer;
         }
-
-        //[HttpGet(Name = "GetWeatherForecast")]
-        //public IEnumerable<WeatherForecast> Get()
-        //{
-        //    return Enumerable.Range(1, 5).Select(index => new WeatherForecast
-        //    {
-        //        Date = DateTime.Now.AddDays(index),
-        //        TemperatureC = Random.Shared.Next(-20, 55),
-        //        Summary = Summaries[Random.Shared.Next(Summaries.Length)]
-        //    })
-        //    .ToArray();
-        //}
 
         [HttpPost("publish")]
         public async Task<IActionResult> PublishMessage([FromBody] RequestMessage request)
