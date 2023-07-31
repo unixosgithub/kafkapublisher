@@ -1,0 +1,23 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: kafkapublisher-map
+data:
+  appsettings.k8s.json: |-
+    {
+      "Logging": {
+        "LogLevel": {
+          "Default": "Error",
+          "System": "Error",
+          "Microsoft": "Error"
+        }
+      },
+     "KafkaSettings": {
+       "bootstrapServers": "pkc-n3603.us-central1.gcp.confluent.cloud: 9092",
+       "securityProtocol": "SASL_SSL",
+       "saslMechanisms": "PLAIN",
+       "saslUsername": "BRJFU6H5I7W5U3UF",
+       "saslPassword": "n678qkI8MjSUpx/nLj+phldD+rFTtzNyhKJAq+RVR15ZcBbI3K3IZ48UuLPUVbBp",
+       "topic": "unixos_topic1"
+       }
+  }
