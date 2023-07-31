@@ -4,8 +4,9 @@ using System.Net;
 
 namespace kafkapublisher.Controllers
 {
-    [Route("/sh")]
+    
     [ApiController]
+    //[Route("/sh")]
     [Route("[controller]")]
     [Consumes("application/json","application/vnd.api+json")]
     [Produces("application/json", "application/vnd.api+json")]
@@ -34,6 +35,20 @@ namespace kafkapublisher.Controllers
             {
                 return StatusCode(Convert.ToInt32(HttpStatusCode.InternalServerError));
             }
+        }
+
+        [HttpGet("getconfig")]
+        public IActionResult Get()
+        {
+            if (_producer != null) 
+            {
+                var settings = _producer?.GetConfigSettings();
+                if (settings != null) 
+                {
+                    return Ok(settings.BootstrapServers);
+                }
+            }
+            return BadRequest("Failed to get config settings");
         }
     }
 }

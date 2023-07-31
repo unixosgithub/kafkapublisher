@@ -12,17 +12,20 @@ namespace kafkapublisher
         private readonly ProducerBuilder<string,string> _producerBuilder;
         private readonly Confluent.Kafka.IProducer<string, string> _producer;
         private readonly string _topic;
-        
+        private readonly IProducerSettings producerSettings;
 
-        public Producer(IProducerSettings producerSettings)
+
+        //public Producer(IProducerSettings producerSettings)
+        public Producer(IConfiguration config)
         {
+            producerSettings = config?.GetSection("KafkaSettings")?.Get<producerSettings>();
             _clientConfig = new ClientConfig()
             {
-                BootstrapServers = producerSettings.BootstrapServers,
+                BootstrapServers = producerSettings?.BootstrapServers,
                 SecurityProtocol = SecurityProtocol.SaslSsl,
                 SaslMechanism = SaslMechanism.Plain,
-                SaslUsername = producerSettings.SaslUsername,
-                SaslPassword = producerSettings.SaslPassword,                
+                SaslUsername = producerSettings?.SaslUsername,
+                SaslPassword = producerSettings?.SaslPassword,                
             };
             
             _topic = producerSettings.Topic;
@@ -30,6 +33,10 @@ namespace kafkapublisher
             _producer = _producerBuilder.Build();
         }
         
+        public IProducerSettings GetConfigSettings()
+        {
+            return producerSettings;
+        }
 
         public ResponseMesage PublishMessage(Message<string,string> message)
         {

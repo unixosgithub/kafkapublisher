@@ -9,11 +9,11 @@ builder.Host.ConfigureAppConfiguration((context, config) =>
     config.AddJsonFile("appsettings.k8s.json", optional: true, reloadOnChange: false);
 });
 
-var kafkaSettings = builder.Configuration.GetSection("KafkaSettings").Get<producerSettings>();
-if (kafkaSettings == null)
-{
-    throw new ArgumentNullException(nameof(kafkaSettings));
-}
+//var kafkaSettings = builder.Configuration.GetSection("KafkaSettings").Get<producerSettings>();
+//if (kafkaSettings == null)
+//{
+//    throw new ArgumentNullException(nameof(kafkaSettings));
+//}
 
 // Add services to the container.
 
@@ -21,7 +21,8 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-builder.Services.AddSingleton<IProducer, Producer>(x => new Producer(kafkaSettings));
+//builder.Services.AddSingleton<IProducer, Producer>(x => new Producer(kafkaSettings));
+builder.Services.AddSingleton<IProducer, Producer>();
 
 var app = builder.Build();
 
