@@ -1,0 +1,59 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: kafkapublisher
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: kafkapublisher
+  template:
+    metadata:
+      labels:
+        app: kafkapublisher
+    spec:
+      containers:
+      - name: kafkapublisher
+        image: PUBLISHER_IMAGE
+        ports:
+          - containerPort: 60001
+        livenessProbe:
+          httpGet:
+            path: /healthcheck
+            port: 60001
+        readinessProbe:
+          httpGet:
+            path: /healthcheck
+            port: 60001          
+---          
+apiVersion: v1
+kind: Service
+metadata:
+  name: kafkapublisher
+spec:
+  type: LoadBalancer
+  selector:    
+    app: kafkapublisher
+  ports:
+  - protocol: TCP
+    port: 70000
+    targetPort: 60001
+    name: http
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: pub-ingress
+  annotations:
+    kubernetes.io/ingress.class: "gce"
+spec:
+  rules:
+  - http:
+      paths:
+      - path: /*
+        pathType: ImplementationSpecific
+        backend:
+          service:
+            name: kafkapublisher
+            port:
+              number: 70000
