@@ -15,7 +15,6 @@ namespace kafkapublisher
         private readonly IProducerSettings producerSettings;
 
 
-        //public Producer(IProducerSettings producerSettings)
         public Producer(IConfiguration config)
         {
             producerSettings = config?.GetSection("KafkaSettings")?.Get<producerSettings>();
