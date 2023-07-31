@@ -36,7 +36,7 @@ spec:
     app: kafkapublisher
   ports:
   - protocol: TCP
-    port: 70000
+    port: 61000
     targetPort: 60001
     name: http
 ---
@@ -56,4 +56,4 @@ spec:
           service:
             name: kafkapublisher
             port:
-              number: 70000
+              number: 61000
