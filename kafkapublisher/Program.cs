@@ -4,9 +4,9 @@ using kafkapublisher.Kafka;
 var builder = WebApplication.CreateBuilder(args);
 builder.Host.ConfigureAppConfiguration((context, config) =>
 {
-    config.AddJsonFile("appsettings.json", optional: true, reloadOnChange: false);
-    config.AddJsonFile("appsettings.Development.json", optional: true, reloadOnChange: false);
-    config.AddJsonFile("appsettings.k8s.json", optional: true, reloadOnChange: false);
+    //config.AddJsonFile("appsettings.json", optional: true, reloadOnChange: false);
+    //config.AddJsonFile("appsettings.Development.json", optional: true, reloadOnChange: false);
+    config.AddJsonFile("config/appsettings.k8s.json", optional: true, reloadOnChange: false);
 });
 
 //var kafkaSettings = builder.Configuration.GetSection("KafkaSettings").Get<producerSettings>();
