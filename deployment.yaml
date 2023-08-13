@@ -1,3 +1,20 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: kafkapublisher-config
+data:
+  appsettings.k8s.json: |-
+    {
+      "KafkaSettings": {
+        "bootstrapServers": "pkc-n3603.us-central1.gcp.confluent.cloud: 9092",
+        "securityProtocol": "SASL_SSL",
+        "saslMechanisms": "PLAIN",
+        "saslUsername": "BRJFU6H5I7W5U3UF",
+        "saslPassword": "n678qkI8MjSUpx/nLj+phldD+rFTtzNyhKJAq+RVR15ZcBbI3K3IZ48UuLPUVbBp",
+        "topic": "unixos_topic1"        
+      }     
+    }
+---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -12,11 +29,18 @@ spec:
       labels:
         app: kafkapublisher
     spec:
+      volumes:
+      - name: kafkapublisher-volume
+        configMap:
+          name: kafkapublisher-config
       containers:
       - name: kafkapublisher
         image: PUBLISHER_IMAGE
+        volumeMounts:
+        - name: kafkapublisher
+          mountPath: /app/config
         ports:
-          - containerPort: 60001
+        - containerPort: 60001
         livenessProbe:
           httpGet:
             path: /healthcheck
