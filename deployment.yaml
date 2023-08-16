@@ -1,9 +1,33 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: kafkapublisher-config
+data:
+  appsettings.k8s.json: |-
+    {
+      "KafkaSettings": {
+        "bootstrapServers": "pkc-n3603.us-central1.gcp.confluent.cloud: 9092",
+        "securityProtocol": "SASL_SSL",
+        "saslMechanisms": "PLAIN",
+        "saslUsername": "BRJFU6H5I7W5U3UF",
+        "saslPassword": "nMmhhD8ABno9S9w/sAa5y/maUez5uyoGzaWClVA3+zavm2YjxlcNpYogeCeCEwSMcnjSVZsCpewIJvfpAku7ZrAgd9d8AgojmdSLOobHYabhrRwjiKj5k1wCvlkUwtvxQpObVsd5/2pRTGAXNQZWZT2vQn4SFUDRS44eTs3zEYB7XIBB1luN+6r0YDScF7vaBh7Qgkqt/SLBTxQ1bkLLRzX1w+WvfxgZ1s3ufnn7bdf5F4cWAeJt3XhSh+WmBW3QeX8dZJT4UnnzR7HGSAeEJ6tKH4uVVCZYzI8Mg2/4vFt+BinOzEGIl3jcRzGrajaw82Qo532kc2jmFRRLIq2lnv0FwmdrxV8f4S1l2ZPYl9M8/J0jKbmCzSy7cnmwVuirGTIEhBO2xY35U1iWWQhj3+b5ESGuWm50bbesTMSI8WH0cuG3lLDCXSoEKzuSE99r8PHMTLI/gqr69HQaOUvHP/+FL7qlhacfgiU8haAUELBkioTTPbJtOe8OoHVFOBiTOcf72bgXJ1RIq864V5PcYQdHjhfX4Z7NBHcaboa/+bZ5o8fj0P8KfQBAKfcV2IbGyTt716Shhb0Ud+RgS4ZMRKt73uqjSKud9KoB8/Vd48ZagircKb+N5lbY1DRYLpfFcMVnlFMPwdAcwBtZe5QSHDs4di4E6LNHjBKZnfzl6oo=",
+        "topic": "unixos_topic1"        
+      },
+      "cryptoSettings" : {
+        "projID": "my-project",
+        "locationId": "us-east1",
+        "keyRingId": "my-key-ring",
+        "keyId": "my-key",
+        "keyVersionId": "123"
+      }
+    }
+---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: kafkapublisher
 spec:
-  replicas: 2
+  replicas: 1
   selector:
     matchLabels:
       app: kafkapublisher
@@ -12,11 +36,18 @@ spec:
       labels:
         app: kafkapublisher
     spec:
+      volumes:
+      - name: kafkapublisher-volume
+        configMap:
+          name: kafkapublisher-config
       containers:
       - name: kafkapublisher
         image: PUBLISHER_IMAGE
+        volumeMounts:
+        - name: kafkapublisher-volume
+          mountPath: /app/config
         ports:
-          - containerPort: 60001
+        - containerPort: 60001
         livenessProbe:
           httpGet:
             path: /healthcheck

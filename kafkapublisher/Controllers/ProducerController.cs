@@ -6,8 +6,7 @@ using System.Net;
 namespace kafkapublisher.Controllers
 {
     
-    [ApiController]
-    //[Route("/sh")]
+    [ApiController]    
     [Route("[controller]")]
     [Consumes("application/json","application/vnd.api+json")]
     [Produces("application/json", "application/vnd.api+json")]
