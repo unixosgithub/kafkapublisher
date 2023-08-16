@@ -1,11 +1,12 @@
 using kafkapublisher;
+using kafkapublisher.Crypt;
 using kafkapublisher.Kafka;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Host.ConfigureAppConfiguration((context, config) =>
 {
-    config.AddJsonFile("appsettings.json", optional: true, reloadOnChange: false);
-    config.AddJsonFile("appsettings.Development.json", optional: true, reloadOnChange: false);
+    //config.AddJsonFile("appsettings.json", optional: true, reloadOnChange: false);
+    //config.AddJsonFile("appsettings.Development.json", optional: true, reloadOnChange: false);
     config.AddJsonFile("appsettings.k8s.json", optional: true, reloadOnChange: false);
 });
 
@@ -21,8 +22,9 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-//builder.Services.AddSingleton<IProducer, Producer>(x => new Producer(kafkaSettings));
+
 builder.Services.AddSingleton<IProducer, Producer>();
+builder.Services.AddSingleton<IDecryptAsymmetric, DecryptAsymmetric>();
 
 var app = builder.Build();
 

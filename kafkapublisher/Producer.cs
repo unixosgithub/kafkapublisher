@@ -17,7 +17,7 @@ namespace kafkapublisher
 
         public Producer(IConfiguration config)
         {
-            producerSettings = config?.GetSection("KafkaSettings")?.Get<producerSettings>();
+            producerSettings = config?.GetSection("KafkaSettings")?.Get<ProducerSettings>();
             _clientConfig = new ClientConfig()
             {
                 BootstrapServers = producerSettings?.BootstrapServers,

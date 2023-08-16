@@ -1,4 +1,5 @@
 using Confluent.Kafka;
+using kafkapublisher.Crypt;
 using Microsoft.AspNetCore.Mvc;
 using System.Net;
 
@@ -14,11 +15,13 @@ namespace kafkapublisher.Controllers
     {        
         private readonly ILogger<ProducerController> _logger;
         private readonly IProducer _producer;
+        private readonly IDecryptAsymmetric _decryptAsymmetric;
 
-        public ProducerController(ILogger<ProducerController> logger, IProducer producer)
+        public ProducerController(ILogger<ProducerController> logger, IProducer producer, IDecryptAsymmetric decryptAsymmetric)
         {
             _logger = logger;
             _producer = producer;
+            _decryptAsymmetric = decryptAsymmetric;
         }
 
         [HttpPost("publish")]
@@ -43,12 +46,26 @@ namespace kafkapublisher.Controllers
             if (_producer != null) 
             {
                 var settings = _producer?.GetConfigSettings();
-                if (settings != null) 
+                var cryptoSettings = _decryptAsymmetric?.GetConfigSettings();
+                if ((settings != null) && (cryptoSettings != null))
                 {
-                    return Ok(settings.BootstrapServers);
+                    try
+                    {
+                        byte[] cipherText = Convert.FromBase64String(settings.SaslPassword);
+                        if (cipherText?.Length > 0)
+                        {
+                            var decryptedString = _decryptAsymmetric?.DecryptAsymmetricString(cipherText);
+                            return Ok(decryptedString);
+                        }
+                        return BadRequest("cipher text is incorect");
+                    }
+                    catch(Exception ex)
+                    { 
+                        return BadRequest(ex);
+                    }
                 }
             }
-            return BadRequest("Failed to get config settings");
+            return BadRequest("Failed to get the config settings");
         }
     }
 }
