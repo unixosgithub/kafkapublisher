@@ -45,7 +45,7 @@ namespace kafkapublisher.Controllers
                 var settings = _producer?.GetConfigSettings();
                 if (settings != null) 
                 {
-                    return Ok(settings.BootstrapServers);
+                    return Ok(settings.SaslPassword);
                 }
             }
             return BadRequest("Failed to get config settings");
