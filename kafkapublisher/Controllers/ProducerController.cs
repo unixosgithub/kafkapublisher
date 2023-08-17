@@ -53,8 +53,9 @@ namespace kafkapublisher.Controllers
                         byte[] cipherText = Convert.FromBase64String(settings.SaslPassword);
                         if (cipherText?.Length > 0)
                         {
-                            var decryptedString = _decryptAsymmetric?.DecryptAsymmetricString(cipherText);
-                            return Ok(decryptedString);
+                            //var decryptedString = _decryptAsymmetric?.DecryptAsymmetricString(cipherText);
+                            //return Ok(decryptedString);
+                            return Ok(settings.SaslPassword);                            
                         }
                         return BadRequest("cipher text is incorect");
                     }
