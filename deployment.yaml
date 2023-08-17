@@ -6,7 +6,7 @@ data:
   appsettings.k8s.json: |-
     {
       "KafkaSettings": {
-        "bootstrapServers": "pkc-n3603.us-central1.gcp.confluent.cloud: 9092",
+        "bootstrapServers": "pkc-n3603.us-central1.gcp.confluent.cloud:9092",
         "securityProtocol": "SASL_SSL",
         "saslMechanisms": "PLAIN",
         "saslUsername": "BRJFU6H5I7W5U3UF",
