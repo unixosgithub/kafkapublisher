@@ -19,6 +19,7 @@ namespace kafkapublisher.Crypt
 
         public DecryptAsymmetric(IConfiguration config)
         {
+            /*
             _cryptoSettings = config?.GetSection("cryptoSettings")?.Get<CryptoSettings>();
 
             if (_cryptoSettings != null)
@@ -29,6 +30,13 @@ namespace kafkapublisher.Crypt
                 _keyId = _cryptoSettings.KeyId;
                 _keyVersionId = _cryptoSettings.KeyVersionId;
             }
+            */
+            // temp hardcode
+            _projID = "my-project";
+                _locationId = "us-east1";
+                _keyRingId = "my-key-ring";
+                _keyId = "my-key";
+                _keyVersionId = "123";
         }
 
         public ICryptoSettings GetConfigSettings()
