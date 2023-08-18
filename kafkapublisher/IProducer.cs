@@ -1,5 +1,6 @@
 ﻿using Confluent.Kafka;
 using kafkapublisher.Kafka;
+using kafkapublisher.Crypt;
 
 namespace kafkapublisher
 {
