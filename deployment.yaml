@@ -14,11 +14,11 @@ data:
         "topic": "unixos_topic1"        
       },
       "cryptoSettings" : {
-        "projID": "my-project",
-        "locationId": "us-east1",
-        "keyRingId": "my-key-ring",
-        "keyId": "my-key",
-        "keyVersionId": "123"
+        "projID": "vivid-lane-348516",
+        "locationId": "global",
+        "keyRingId": "my-keyring",
+        "keyId": "my-asymmetric-encryption-key",
+        "keyVersionId": "1"
       }
     }
 ---
