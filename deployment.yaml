@@ -37,6 +37,9 @@ spec:
         app: kafkapublisher
     spec:
       volumes:
+      - name: servicec-account-key
+        secret:
+          secretName: svcaccount-key 
       - name: kafkapublisher-volume
         configMap:
           name: kafkapublisher-config
@@ -46,6 +49,9 @@ spec:
         volumeMounts:
         - name: kafkapublisher-volume
           mountPath: /app/config
+        env:
+        - name: GOOGLE_APPLICATION_CREDENTIALS
+          value: /var/secrets/google/key.json
         ports:
         - containerPort: 60001
         livenessProbe:
