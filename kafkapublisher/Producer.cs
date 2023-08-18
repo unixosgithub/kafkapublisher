@@ -46,7 +46,7 @@ namespace kafkapublisher
                 }
                 catch(Exception ex)
                 { 
-                    throw new Excepteion(ex);
+                    throw new Exception(ex);
                 }
             }
             
