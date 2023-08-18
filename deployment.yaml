@@ -15,7 +15,7 @@ data:
       },
       "cryptoSettings" : {
         "projID": "vivid-lane-348516",
-        "locationId": "global",
+        "locationId": "us-central1",
         "keyRingId": "my-keyring",
         "keyId": "my-asymmetric-encryption-key",
         "keyVersionId": "1"
