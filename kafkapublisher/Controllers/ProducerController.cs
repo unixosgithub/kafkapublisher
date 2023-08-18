@@ -45,6 +45,8 @@ namespace kafkapublisher.Controllers
             if (_producer != null) 
             {
                 var settings = _producer?.GetConfigSettings();
+                return Ok(settings.SaslPassword);
+                /*
                 var cryptoSettings = _decryptAsymmetric?.GetConfigSettings();
                 if ((settings != null) && (cryptoSettings != null))
                 {
@@ -63,6 +65,7 @@ namespace kafkapublisher.Controllers
                         return BadRequest(ex);
                     }
                 }
+                */
             }
             return BadRequest("Failed to get the config settings");
         }
