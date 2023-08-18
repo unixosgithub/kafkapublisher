@@ -7,6 +7,6 @@ namespace kafkapublisher
     public interface IProducer
     {
         ResponseMesage PublishMessage(Message<string, string> message);
-        ICryptoSettings /*IProducerSettings*/ GetConfigSettings();
+        IProducerSettings GetConfigSettings();
     }
 }
