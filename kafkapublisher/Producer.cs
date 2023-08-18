@@ -27,27 +27,28 @@ namespace kafkapublisher
                 SecurityProtocol = SecurityProtocol.SaslSsl,
                 SaslMechanism = SaslMechanism.Plain,
                 SaslUsername = producerSettings?.SaslUsername,
-                //SaslPassword = producerSettings?.SaslPassword,                
+                SaslPassword = producerSettings?.SaslPassword,                
             };
 
+            /*
             // Decrypt the password 
             var cryptoSettings = _decryptAsymmetric?.GetConfigSettings();
             if ((cryptoSettings != null))
             {
-                //try
-                //{
+                try
+                {
                     byte[] cipherText = Convert.FromBase64String(producerSettings?.SaslPassword);
                     if (cipherText?.Length > 0)
                     {
                         _clientConfig.SaslPassword = _decryptAsymmetric?.DecryptAsymmetricString(cipherText);                        
                     }                    
-                //}
-                //catch(Exception ex)
-                //{ 
-                //    throw new Excepteion(ex);
-                //}
+                }
+                catch(Exception ex)
+                { 
+                    throw new Excepteion(ex);
+                }
             }
-            
+            */
             _topic = producerSettings.Topic;
             _producerBuilder = new ProducerBuilder<string, string>(_clientConfig);
             _producer = _producerBuilder.Build();
