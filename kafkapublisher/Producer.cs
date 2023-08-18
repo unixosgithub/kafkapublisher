@@ -27,10 +27,10 @@ namespace kafkapublisher
                 SecurityProtocol = SecurityProtocol.SaslSsl,
                 SaslMechanism = SaslMechanism.Plain,
                 SaslUsername = producerSettings?.SaslUsername,
-                SaslPassword = producerSettings?.SaslPassword,                
+                //SaslPassword = producerSettings?.SaslPassword,                
             };
 
-            /*
+            
             // Decrypt the password 
             var cryptoSettings = _decryptAsymmetric?.GetConfigSettings();
             if ((cryptoSettings != null))
@@ -40,7 +40,8 @@ namespace kafkapublisher
                     byte[] cipherText = Convert.FromBase64String(producerSettings?.SaslPassword);
                     if (cipherText?.Length > 0)
                     {
-                        _clientConfig.SaslPassword = _decryptAsymmetric?.DecryptAsymmetricString(cipherText);                        
+                        var decryptedPass = _decryptAsymmetric?.DecryptAsymmetricString(cipherText);
+                        _clientConfig.SaslPassword = decryptedPass.Replace("\n", string.Empty);
                     }                    
                 }
                 catch(Exception ex)
@@ -48,7 +49,7 @@ namespace kafkapublisher
                     throw new Excepteion(ex);
                 }
             }
-            */
+            
             _topic = producerSettings.Topic;
             _producerBuilder = new ProducerBuilder<string, string>(_clientConfig);
             _producer = _producerBuilder.Build();
