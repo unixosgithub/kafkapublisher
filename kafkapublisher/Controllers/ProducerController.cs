@@ -44,10 +44,9 @@ namespace kafkapublisher.Controllers
         {
             if (_producer != null) 
             {
-                //var settings = _producer?.GetConfigSettings();
-
-                var settings = _decryptAsymmetric?.GetConfigSettings();
-                return Ok(settings.LocationId);
+                var settings = _producer?.GetConfigSettings();
+                
+                return Ok(settings.SaslPassword);
                 /*
                 var cryptoSettings = _decryptAsymmetric?.GetConfigSettings();
                 if ((settings != null) && (cryptoSettings != null))
