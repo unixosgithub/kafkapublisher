@@ -56,7 +56,8 @@ namespace kafkapublisher
         
         public IProducerSettings GetConfigSettings()
         {
-            return producerSettings;
+            //return producerSettings;
+            return _decryptAsymmetric?.GetConfigSettings();
         }
 
         public ResponseMesage PublishMessage(Message<string,string> message)
