@@ -35,19 +35,19 @@ namespace kafkapublisher
             var cryptoSettings = _decryptAsymmetric?.GetConfigSettings();
             if ((cryptoSettings != null))
             {
-                try
-                {
+                //try
+                //{
                     byte[] cipherText = Convert.FromBase64String(producerSettings?.SaslPassword);
                     if (cipherText?.Length > 0)
                     {
                         var decryptedPass = _decryptAsymmetric?.DecryptAsymmetricString(cipherText);
                         _clientConfig.SaslPassword = decryptedPass.Replace("\n", string.Empty);
                     }                    
-                }
-                catch(Exception ex)
-                { 
-                    throw new Exception(ex);
-                }
+                //}
+                //catch(Exception ex)
+                //{ 
+                //    throw new Exception(ex);
+                //}
             }
             
             _topic = producerSettings.Topic;
