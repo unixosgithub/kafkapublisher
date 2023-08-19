@@ -27,7 +27,7 @@ kind: Secret
 metadata:
   name: my-service-account-credentials
 type: Opaque
-data: 
+stringData: 
   sa_json: |-
     {
     "type": "service_account",
