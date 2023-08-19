@@ -27,8 +27,9 @@ kind: Secret
 metadata:
   name: my-service-account-credentials
 type: Opaque
-data: sa_json:|-
-  {
+data: 
+  sa_json: |-
+    {
     "type": "service_account",
     "project_id": "vivid-lane-348516",
     "private_key_id": "8ba425b81b4389cbe99889e858c3337f160300dc",
@@ -40,7 +41,7 @@ data: sa_json:|-
     "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
     "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/svc-myaccount%40vivid-lane-348516.iam.gserviceaccount.com",
     "universe_domain": "googleapis.com"
-  }
+    }
 ---
 apiVersion: apps/v1
 kind: Deployment
