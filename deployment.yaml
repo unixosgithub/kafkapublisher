@@ -27,7 +27,7 @@ kind: Secret
 metadata:
   name: my-service-account-credentials
 type: Opaque
-data: sa.json:|-
+data: sa_json:|-
   {
     "type": "service_account",
     "project_id": "vivid-lane-348516",
