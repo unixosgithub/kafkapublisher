@@ -109,17 +109,25 @@ spec:
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: pub-ingress
+  name: pubcon-ingress
   annotations:
     kubernetes.io/ingress.class: "gce"
 spec:
   rules:
   - http:
       paths:
-      - path: /*
+      - path: /producer
         pathType: ImplementationSpecific
         backend:
           service:
             name: kafkapublisher
             port:
               number: 61000
+      - path: /consumer
+        pathType: ImplementationSpecific
+        backend:
+          service:
+            name: kafkaconsumer
+            port:
+              number: 51000
+        
