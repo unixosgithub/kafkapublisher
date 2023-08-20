@@ -85,11 +85,11 @@ spec:
         - containerPort: 60001
         livenessProbe:
           httpGet:
-            path: /healthcheck
+            path: /producer/healthcheck
             port: 60001
         readinessProbe:
           httpGet:
-            path: /healthcheck
+            path: /producer/healthcheck
             port: 60001          
 ---          
 apiVersion: v1
