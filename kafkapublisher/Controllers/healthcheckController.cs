@@ -5,12 +5,12 @@ using System.Net;
 
 namespace kafkapublisher.Controllers
 {
-    [Route("[controller]")]
+    [Route("/producer")]
     [ApiController]
     public class healthcheckController : ControllerBase
     {
         // GET: api/<healthcheckController>
-        [HttpGet]
+        [HttpGet("healthcheck")]
         public HttpStatusCode Get()
         {
             return HttpStatusCode.OK;
